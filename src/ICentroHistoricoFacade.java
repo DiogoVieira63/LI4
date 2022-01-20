@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import java.util.*;
-=======
 package src;
 
-public interface ICentroHistoricoFacade {
->>>>>>> 704f869f1f72867160c383f7cc21db157b38574f
+import java.util.*;
 
 public interface ICentroHistoricoFacade {
     

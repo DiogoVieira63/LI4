@@ -1,11 +1,9 @@
-package HTTP;
+package src;
 
 import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-
-import src.GuideMeTo;
 
 @WebServlet(name = "HTTP.HTTPAutentication",value = "/aut")
 
