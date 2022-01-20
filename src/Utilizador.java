@@ -3,7 +3,10 @@ import java.util.stream.Collectors;
 
 public class Utilizador {
  
-    private String nome = "", email = "", password = "", numTelefone = "";
+    private String nome = "";
+    private String email = "";
+    private String password = "";
+    private String numTelefone = "";
     private boolean loggedIn = false;
 
     List<Notificacao> notificacao = new ArrayList<>();

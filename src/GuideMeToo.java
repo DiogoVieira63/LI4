@@ -26,12 +26,16 @@ public class GuideMeToo {
     }
 
     public List<Notificacao> getNotificacoes(String nome){
-        return utilizadores.getNotificoes(nome);
+        return utilizadores.getNotificacoes(nome);
     }
     
     public List<Notificacao> getNotificacoes(){
         return utilizadores.getAllNotificacoes();
     }
 
-    public L
+    public List<CentroHistorico> getCentroHistoricos(){
+        return centros.getCentrosHistoricos();
+    }
+
+    
 }

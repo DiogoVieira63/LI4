@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class CentroHistorico {
-    String nome, descricao, site;
+    String nome, descricao, site, rua;
     double precario, avaliacao;
 
-    List<Review> reveiws = new ArrayList<>();
+    List<Review> reviews = new ArrayList<>();
 
     Horario[] horario = new Horario[7];
 
@@ -48,20 +48,31 @@ public class CentroHistorico {
         this.avaliacao = avaliacao;
     }
 
-    public List<Review> getReveiws() {
-        return reveiws;
+    public List<Review> getReviews() {
+        return reviews;
     }
 
-    public void setReveiws(List<Review> reveiws) {
-        this.reveiws = reveiws;
+
+    public String getRua(){
+        return rua;
     }
 
-    public Horario[] getHorario() {
-        return horario;
-    }
+
 
     public void setHorario(Horario[] horario) {
         this.horario = horario;
+    }
+
+    public List<Horario> getHorarios() {
+        List<Horario> lista = new ArrayList<>();
+        for (Horario h : this.horario){
+            lista.add(h);
+        }
+        return lista;
+    }
+
+    public Horario getHorario(int dia) {
+        return horario[dia];
     }
 
 }
