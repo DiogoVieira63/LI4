@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="LI4_GuideMeTo:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>LI4_GuideMeTo</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="LI4_GuideMeTo-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="LI4_GuideMeTo:war exploded" />
+    </root>
+  </artifact>
+</component>
