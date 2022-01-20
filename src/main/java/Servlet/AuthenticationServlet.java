@@ -11,7 +11,7 @@ public class AuthenticationServlet extends HttpServlet {
 
         public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
             //String name = request.getParameter("name");
-            String num = request.getParameter("num");
+            //String num = request.getParameter("num");
             //Person p = new Person(name,password);
             //Person o = new Person("Bob","123");
 
