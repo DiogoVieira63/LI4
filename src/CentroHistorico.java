@@ -92,4 +92,13 @@ public class CentroHistorico {
         return (d/this.reviews.size());
     }
 
+    public void atualizaHorario(Horario[] horarioArray) {
+        this.horario = horarioArray;
+    }
+
+
+    public void addReview(Review r){
+        this.reviews.add(r);
+    }
+
 }

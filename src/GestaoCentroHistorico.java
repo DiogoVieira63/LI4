@@ -4,14 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class GestaoCentroHistorico {
+public class GestaoCentroHistorico implements ICentroHistoricoFacade{
     private Map<String,CentroHistorico> centros = new HashMap<>();
 
-    public String getSite(String nome) {
-        try { 
-            return centros.get(nome).getSite();
-        }catch(NullPointerException e){ return null; }
-    }
 
     public List<CentroHistorico> getCentrosHistoricos() {
         return this.centros
@@ -74,16 +69,12 @@ public class GestaoCentroHistorico {
         centros.get(nome).setHorario(dia, h);
     }
 
-
-    public void atualizaHorario(String nome, int dia, List<Horario> horarios){
-       /*
-        Horario[] h;
+    public void atualizaHorario(String nome, List<Horario> horarios){
+        Horario[] horarioArray = new Horario[7];
         for (int i = 0; i < 7; i++){
-            h[i] = horarios.get(i);
+            horarioArray[i] = horarios.get(i);
         }
-        centros.get(nome).
-        */
-
+        centros.get(nome).atualizaHorario(horarioArray);
     }
 
     public void atualizaPrecario(String nome, double p){
