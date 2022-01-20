@@ -1,6 +1,7 @@
 import java.util.*;
 
-public class GestaoUtilizador {
+public class GestaoUtilizador implements IUtilizadorFacade{
+
     private Map<String,Utilizador> utilizadores = new HashMap(); 
 
 
@@ -18,7 +19,7 @@ public class GestaoUtilizador {
 
 	public boolean logIn(String email, String password) {
         if (utilizadores.get(email).getEmail().equals(email) && 
-        utilizadores.get(email).getPassword().equals(password)){
+            utilizadores.get(email).getPassword().equals(password)){
             utilizadores.get(email).setLoggedIn(true);
             return true;
         } 
@@ -53,11 +54,39 @@ public class GestaoUtilizador {
         return false;
     }
 
+    public boolean validaRegisto(String email, String n_telemovel, String nome, String password){
+        return false;
+    }
+
+    public boolean validaLogin(String email, String password){
+        return false;
+    }
+
     public void enviaNotificacao(Notificacao n){
+
+    }
+
+    public void adicionaVisita(CentroHistorico visita){
 
     }
 
     public List<Notificacao> listarNotificacoes(String u){
         return utilizadores.get(u).getNotificacoes();
+    }
+
+    public void configurarNotificacao(int IDNotificacao, boolean ativa){
+
+    }
+
+    public void eliminarNotificacoes(int id){
+
+    }
+
+    public void configurarPassword(String pass){
+
+    }
+
+    public void avaliar(String nome, double eval_preservacao, double eval_experiencia, double eval_facilidade, double eval_estetica){
+
     }
 }

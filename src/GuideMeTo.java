@@ -26,7 +26,7 @@ public class GuideMeTo implements IGuideMeToFacade{
     }
 
     public String getHiperligacao (String nomeCentro){ 
-        return centros.getSite(nomeCentro); 
+        return centros.getHiperligacao(nomeCentro); 
     }
 
     /*
