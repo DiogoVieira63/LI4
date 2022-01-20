@@ -28,7 +28,7 @@ public class GestaoUtilizador {
         }
 	}
 
-    public boolean logOut(String email, String password) {
+    public boolean logOut(String email) {
         if(utilizadores.get(email).isLoggedIn()){
             utilizadores.get(email).setLoggedIn(false);
             return true; 
@@ -48,4 +48,16 @@ public class GestaoUtilizador {
         }
         return lista;
 	}
+
+    public boolean validaRegisto(String email, String nome, String password){
+        return false;
+    }
+
+    public void enviaNotificacao(Notificacao n){
+
+    }
+
+    public List<Notificacao> listarNotificacoes(String u){
+        return utilizadores.get(u).getNotificacoes();
+    }
 }

@@ -1,10 +1,9 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import javax.print.DocFlavor.STRING;
 
 public class GestaoCentroHistorico {
-    private Map<String,CentroHistorico> centros = new HashMap();
+    private Map<String,CentroHistorico> centros = new HashMap<>();
 
     public String getSite(String nome) {
         try { 
@@ -70,16 +69,27 @@ public class GestaoCentroHistorico {
     }
 
     public void atualizaHorario(String nome, int dia, Horario h){
-
+        centros.get(nome).setHorario(dia, h);
     }
 
 
     public void atualizaHorario(String nome, int dia, List<Horario> horarios){
-        
+       /*
+        Horario[] h;
+        for (int i = 0; i < 7; i++){
+            h[i] = horarios.get(i);
+        }
+        centros.get(nome).
+        */
+
     }
 
     public void atualizaPrecario(String nome, double p){
-        
+        centros.get(nome).setPrecario(p);
+    }
+
+    public double calcAvalGeral(String nome){
+        return centros.get(nome).calcAvalGeral();
     }
 
 }
