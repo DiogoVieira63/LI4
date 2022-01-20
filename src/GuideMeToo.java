@@ -32,4 +32,6 @@ public class GuideMeToo {
     public List<Notificacao> getNotificacoes(){
         return utilizadores.getAllNotificacoes();
     }
+
+    public L
 }

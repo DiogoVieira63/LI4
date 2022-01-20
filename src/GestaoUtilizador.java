@@ -32,6 +32,9 @@ public class GestaoUtilizador {
     }
 
 	public List<Notificacao> getAllNotificacoes() {
-		return null;
+        List<Notificacao> lista = new ArrayList<>;
+		for (Utilizador u : this.utilizadores.values()){
+
+        }
 	}
 }
