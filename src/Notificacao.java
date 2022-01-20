@@ -1,4 +1,4 @@
-public class Notificao {
+public class Notificacao {
     int id;
     String conteudo;
 }

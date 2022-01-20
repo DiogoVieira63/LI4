@@ -1,5 +1,5 @@
 public class Review {
-    double preser, exp, fa, est;
+    private double preser, exp, fa, est;
 
 
 
