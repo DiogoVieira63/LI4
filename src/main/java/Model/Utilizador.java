@@ -19,6 +19,14 @@ public class Utilizador {
 
     private List<ConfigNotificacoes> configuracoes = new ArrayList<>();
     
+    public Utilizador(String nome, String email, String password, String numTelefone, boolean loggedIn) {
+        this.nome = nome;
+        this.email = email;
+        this.password = password;
+        this.numTelefone = numTelefone;
+        this.loggedIn = loggedIn;
+    }
+
     public Utilizador(String nome, String password, String email){
         this.nome = nome;
         this.email = email;

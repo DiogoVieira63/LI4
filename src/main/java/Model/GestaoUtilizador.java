@@ -1,42 +1,36 @@
 package Model;
 
+import java.sql.*;
 import java.util.*;
 
 public class GestaoUtilizador implements IUtilizadorFacade{
 
-    private Map<String,Utilizador> utilizadores = new HashMap(); 
-
+    private Utilizador utilizador = null; 
+    private Connection c = null;
 
     public boolean newUser (String nome, String password, String email){
-        Utilizador user = new Utilizador(nome, password, email);
-        this.utilizadores.put(nome, user);
-        return true;
+        try{
+            Utilizador user = UtilizadorDAO.create(c, nome, password, email);
+            utilizador = user;
+            return true;
+        }catch(SQLException e){ return false; }
+
     }
 
     public boolean newUser (String nome, String password, String email, String num_telefone){
-        Utilizador user = new Utilizador(nome, password, email, num_telefone);
-        this.utilizadores.put(nome, user);
-        return true;
+        try{
+            Utilizador user = UtilizadorDAO.create(c, nome, password, email, num_telefone);
+            utilizador = user;
+            return true;
+        }catch(SQLException e){ return false; }
     }
 
 	public boolean logIn(String email, String password) {
-        if (utilizadores.get(email).getEmail().equals(email) && 
-            utilizadores.get(email).getPassword().equals(password)){
-            utilizadores.get(email).setLoggedIn(true);
-            return true;
-        } 
-        else{
-             utilizadores.get(email).setLoggedIn(false);
-             return false;
-        }
+        return ( (utilizador = UtilizadorDAO.logIn(c,email,password)) != null);
 	}
 
     public boolean logOut(String email) {
-        if(utilizadores.get(email).isLoggedIn()){
-            utilizadores.get(email).setLoggedIn(false);
-            return true; 
-        } 
-        return false;
+        return ( (utilizador = UtilizadorDAO.logOut(email) ) == null)
     }
 
 
