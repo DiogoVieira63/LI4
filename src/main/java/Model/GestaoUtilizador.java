@@ -13,7 +13,9 @@ public class GestaoUtilizador implements IUtilizadorFacade{
             Utilizador user = UtilizadorDAO.create(c, nome, password, email);
             utilizador = user;
             return true;
-        }catch(SQLException e){ return false; }
+        }catch(SQLException e){
+            return false;
+        }
 
     }
 
@@ -25,7 +27,7 @@ public class GestaoUtilizador implements IUtilizadorFacade{
         }catch(SQLException e){ return false; }
     }
 
-	public boolean logIn(String email, String password) {
+	public boolean logIn(String email, String password) throws SQLException {
         return ( (utilizador = UtilizadorDAO.logIn(c,email,password)) != null);
 	}
 

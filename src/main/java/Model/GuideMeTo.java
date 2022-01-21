@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class GuideMeTo implements IGuideMeToFacade{
@@ -16,7 +17,12 @@ public class GuideMeTo implements IGuideMeToFacade{
     }
 
     public boolean logIn(String email, String password){
-        return utilizadores.logIn(email,password);
+        try {
+            return utilizadores.logIn(email,password);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
     }
 
     public boolean logOut(String email){
