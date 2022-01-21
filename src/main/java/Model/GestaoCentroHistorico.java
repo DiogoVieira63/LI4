@@ -1,18 +1,19 @@
 package Model;
 
+import java.sql.Connection;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class GestaoCentroHistorico implements ICentroHistoricoFacade{
-    private Map<String,CentroHistorico> centros = new HashMap<>();
+    private CentroHistoricoDAO centros;
 
+    public GestaoCentroHistorico(Connection connection){
+        this.centros = new CentroHistoricoDAO(connection);
+    }
 
-    public List<CentroHistorico> getCentrosHistoricos() {
-        return this.centros
-            .values()
-            .stream()
-            .collect(Collectors.toList());
+    public List<String> getKeys(){
+        return this.centros.getAllKeys();
     }
 
     public List<Horario> getHorario(String nome){

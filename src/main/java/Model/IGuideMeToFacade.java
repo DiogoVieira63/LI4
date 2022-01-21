@@ -1,13 +1,14 @@
 package Model;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public interface IGuideMeToFacade {
 
     boolean registarUtilizador(String nome, String password, String email);
     boolean registarUtilizador(String nome, String password, String email, String n_telemovel);
-    boolean logIn(String email, String password);
-    boolean logOut(String email);
+    void logIn(String email, String password) throws SQLException;
+    void logOut(String email) throws SQLException;
     void configurarConta();
     String getHiperligacao (String nomeCentro);
     List<Notificacao> getNotificacoes();

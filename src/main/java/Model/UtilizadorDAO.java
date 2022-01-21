@@ -4,7 +4,13 @@ import java.sql.*;
 
 public class UtilizadorDAO {
 
-    public static Utilizador create(Connection c, String nome, String password, String email) throws SQLException{
+    private Connection c;
+
+    public UtilizadorDAO(Connection connection){
+        this.c = connection;
+    }
+
+    public Utilizador create(String nome, String password, String email) throws SQLException{
         String query = "INSERT INTO utilizador (Email,Password,Nome,LoggedIn,Configuracoes_notificacao )VALUES (?, ?, ?, ?,?)";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, email);
@@ -16,7 +22,7 @@ public class UtilizadorDAO {
         return new Utilizador(nome, password, email);
     }
 
-    public static Utilizador create(Connection c, String nome, String password, String email, String num_telefone) throws SQLException{
+    public Utilizador create(String nome, String password, String email, String num_telefone) throws SQLException{
         String query = "INSERT INTO utilizador (Email,Password,Nome,Telemovel,LoggedIn,Configuracoes_notificacao )VALUES (?, ?,?, ?, ?,?)";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, email);
@@ -29,10 +35,10 @@ public class UtilizadorDAO {
         return new Utilizador(nome, password, email,num_telefone);
     }
 
-    public static Utilizador logIn (Connection connection, String email, String password) throws SQLException {
+    public Utilizador logIn (String email, String password) throws SQLException {
         String query = "UPDATE utilizador SET LoggedIn = ? WHERE email = ? AND password = ? AND LoggedIn = ?";
         PreparedStatement ps;
-        ps = connection.prepareStatement(query);
+        ps = c.prepareStatement(query);
         ps.setInt(1,1);
         ps.setString(2,email);
         ps.setString(3,password);
@@ -43,7 +49,7 @@ public class UtilizadorDAO {
         }
         else {
             System.out.println("Login feito com sucesso");
-            return getUtilizador(connection,email);
+            return getUtilizador(c,email);
         }
         return null; //TODO THROW EXCEPTION
         /*
@@ -64,10 +70,10 @@ public class UtilizadorDAO {
          */
     }
 
-    private static void logOut(Connection connection,String email) throws SQLException {
+    public void logOut(String email) throws SQLException {
         String query = "UPDATE utilizador SET LoggedIn = ? WHERE email = ? AND LoggedIn = ?";
         PreparedStatement ps;
-        ps = connection.prepareStatement(query);
+        ps = c.prepareStatement(query);
         ps.setInt(1,0);
         ps.setString(2,email);
         ps.setInt(3,1);
@@ -79,11 +85,7 @@ public class UtilizadorDAO {
     }
 
 
-
-
-
-
-    public static Utilizador getUtilizador (Connection connection, String email) throws SQLException {
+    public Utilizador getUtilizador (Connection connection, String email) throws SQLException {
         String query ="SELECT * FROM utilizador WHERE email = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1,email);
@@ -96,7 +98,7 @@ public class UtilizadorDAO {
             int confNotificao = rs.getInt("Configuracoes_notificacao");//TODO NOT SURE ABOUT THIS
             return new Utilizador(email,password,nome,telemovel,loggedIn);
         }
-
+        return null;//TODO THROW EXCEPTION
     }
 
 

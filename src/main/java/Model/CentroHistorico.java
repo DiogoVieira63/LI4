@@ -3,16 +3,22 @@ package Model;
 import java.util.*;
 
 public class CentroHistorico {
-    String nome;
-    String descricao;
-    String site;
-    String rua;
-    double precario;
-    double avaliacao;
+    private String nome, descricao, site, rua;
+    private double avaliacao;
+    private Localizacao localizacao;
+    private List<Horario> horario;
+    private ReviewsDAO reviews ;
 
-    List<Review> reviews = new ArrayList<>();
-
-    Horario[] horario = new Horario[7];
+    public CentroHistorico(String nome, String descricao, String site, String rua, double avaliacao, Localizacao localizacao, List<Horario> horario, ReviewsDAO reviews) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.site = site;
+        this.rua = rua;
+        this.avaliacao = avaliacao;
+        this.localizacao = localizacao;
+        this.horario = horario;
+        this.reviews = reviews;
+    }
 
     public String getNome() {
         return nome;
@@ -36,14 +42,6 @@ public class CentroHistorico {
 
     public void setSite(String site) {
         this.site = site;
-    }
-
-    public double getPrecario() {
-        return precario;
-    }
-
-    public void setPrecario(double precario) {
-        this.precario = precario;
     }
 
     public double getAvaliacao() {

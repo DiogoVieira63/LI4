@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public interface IUtilizadorFacade {
@@ -8,7 +9,7 @@ public interface IUtilizadorFacade {
     boolean validaRegisto(String email, String n_telemovel, String nome, String password);
     boolean validaLogin(String email, String password);
     void enviaNotificacao(Notificacao n);
-    boolean logOut(String email);
+    void logOut(String email) throws SQLException;
     void adicionaVisita(CentroHistorico visita);
     List<Notificacao> listarNotificacoes(String u);
     void configurarNotificacao(int IDNotificacao, boolean ativa);
