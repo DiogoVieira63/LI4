@@ -36,22 +36,20 @@ public class UtilizadorDAO {
     }
 
     public Utilizador logIn (String email, String password) throws SQLException {
-        String query = "UPDATE utilizador SET LoggedIn = ? WHERE email = ? AND password = ? AND LoggedIn = ?";
+        String query = "UPDATE utilizador SET LoggedIn = ? WHERE email = ? AND password = ?";
         PreparedStatement ps;
         ps = c.prepareStatement(query);
         ps.setInt(1,1);
         ps.setString(2,email);
         ps.setString(3,password);
-        ps.setInt(4,0);
         int i = ps.executeUpdate();
         if (i  == 0){//THROW EXCEPTION UTILIZADOR NÃO EXISTE
-            System.out.println("Login Inválido");
+            return null;
         }
         else {
             System.out.println("Login feito com sucesso");
             return getUtilizador(email);
         }
-        return null;
     }
 
     public void logOut(String email) throws SQLException {

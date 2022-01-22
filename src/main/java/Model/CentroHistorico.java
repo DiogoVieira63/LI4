@@ -51,16 +51,18 @@ public class CentroHistorico {
     public void setAvaliacao(double avaliacao) {
         this.avaliacao = avaliacao;
     }
-
+       /*
     public List<Review> getReviews() {
         return reviews;
     }
 
 
+        */
+
     public String getRua(){
         return rua;
     }
-
+               /*
     public void setHorario(Horario[] horario) {
         this.horario = horario;
     }
@@ -70,6 +72,8 @@ public class CentroHistorico {
         this.horario[dia] = horario;
     }
 
+                */
+
     public List<Horario> getHorarios() {
         List<Horario> lista = new ArrayList<>();
         for (Horario h : this.horario){
@@ -78,6 +82,7 @@ public class CentroHistorico {
         return lista;
     }
 
+    /*
     public Horario getHorario(int dia) {
         return horario[dia];
     }
@@ -98,5 +103,7 @@ public class CentroHistorico {
     public void addReview(Review r){
         this.reviews.add(r);
     }
+
+     */
 
 }

@@ -1,21 +1,25 @@
 package Model;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Review {
-    private double preser;
-    private double exp;
-    private double fa;
-    private double est;
+    private String user;
+    private String centro;
+    private double preservacao;
+    private double experiencia;
+    private double facilidadeAcesso;
+    private double estetica;
+    private Date dia;
 
 
-    public Review(double preser, double exp, double fa, double est){
-        this.preser = preser;
-        this.exp = exp;
-        this.fa = fa;
-        this.est = est;
+    public Review(String user, String centro, double preservacao, double experiencia, double facilidadeAcesso, double estetica, Date dia) {
+        this.user = user;
+        this.centro = centro;
+        this.preservacao = preservacao;
+        this.experiencia = experiencia;
+        this.facilidadeAcesso = facilidadeAcesso;
+        this.estetica = estetica;
+        this.dia = dia;
     }
-
-    public double media(){
-        return (this.preser + this.exp + this.fa + this.est)/4;
-    }
-
 }

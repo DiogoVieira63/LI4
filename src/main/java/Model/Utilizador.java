@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -11,9 +12,8 @@ public class Utilizador {
     private String numTelefone = "";
     private boolean loggedIn = false;
 
-    private List<Review> avaliacoes = new ArrayList<>(); 
-
-    private List<CentroHistorico> historico = new ArrayList<>();
+    private ReviewsDAO avaliacoes;
+    private VisitasDAO historico;
 
     public Utilizador(String nome, String email, String password, String numTelefone, boolean loggedIn) {
         this.nome = nome;
@@ -76,36 +76,24 @@ public class Utilizador {
         this.loggedIn = loggedIn;
     }
 
-    public List<Review> getReveiws() {
-        return avaliacoes;
+    public List<Review> getReveiws() throws SQLException {
+        return avaliacoes.getReviewsUser(this.email);
     }
 
-    public void setReveiws(List<Review> reveiws) {
-        this.avaliacoes = reveiws;
+    public List<String> getHistorico() throws SQLException {
+        return historico.getCentros(email);
     }
 
-    public List<CentroHistorico> getHistorico() {
-        return historico;
-    }
-
-    public void setHistorico(List<CentroHistorico> historico) {
-        this.historico = historico;
-    }
-
-    public void addVisita(CentroHistorico visita){
-        this.historico.add(visita);
+    public void addVisita(CentroHistorico visita) throws  SQLException{
+        this.historico.addVisita(email,visita.getNome());
     }
 
     public void mudarPass(String pass){
         setPassword(password);
     }
 
-    public void addReview(String nome, double eval_preservacao, double eval_experiencia, double eval_facilidade, double eval_estetica){
-        Review r = new Review(eval_preservacao, eval_experiencia, eval_facilidade, eval_estetica);
-        for(CentroHistorico ch : this.historico){
-            if(ch.getNome().equals(nome)) ch.addReview(r);
-        }
-        this.avaliacoes.add(r);
+    public void addReview(String nome, double eval_preservacao, double eval_experiencia, double eval_facilidade, double eval_es) throws SQLException{
+        avaliacoes.doReview(email,nome,eval_preservacao, eval_experiencia, eval_facilidade, eval_es);
     }
 
     public boolean validaRegisto(String email, String nome, String password){ 

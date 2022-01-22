@@ -24,11 +24,14 @@ public class GestaoCentroHistorico {
         } catch(Exception e) { return null; }
     }
 
+    /*
     public Horario getHorario(String nome, int dia) {
         try {
             return centros.get(nome).getHorario(dia);
         } catch(Exception e) { return null; }
     }
+
+     */
 
 
     public String getDescricao(String nome){
@@ -49,19 +52,22 @@ public class GestaoCentroHistorico {
         } catch(Exception e) { return 0; }
     }
 
-
+                 /*
     public List<Review> getListaAvaliacao(String nome){
         try{
             return centros.get(nome).getReviews();
         } catch(Exception e) { return null; }
     }
 
+
+                  */
     public String getRua(String nome){
         try{
             return centros.get(nome).getRua();
         } catch(Exception e) { return null; }
     }
 
+    /*
     public void atualizaHorario(String nome, int dia, Horario h){
         centros.get(nome).setHorario(dia, h);
     }
@@ -80,6 +86,12 @@ public class GestaoCentroHistorico {
 
     public double calcAvalGeral(String nome){
         return centros.get(nome).calcAvalGeral();
+    }
+
+     */
+
+    public Map<String,Localizacao> getLocalizacoes() throws SQLException {
+        return centros.getLocalizacoes();
     }
 
 }

@@ -49,8 +49,8 @@ public class CentroHistoricoDAO {
         double avaliacao = rs.getDouble("Aval_geral");
         Localizacao localizacao = getLocalizao(id);
         List<Horario> horarios = getHorario(id);
-        ReviewsDAO
-        return new CentroHistorico(id,nome,hiperLigacao,rua,avaliacao,localizacao,horarios,);
+        ReviewsDAO reviewsDAO = new ReviewsDAO(c);
+        return new CentroHistorico(id,nome,hiperLigacao,rua,avaliacao,localizacao,horarios,reviewsDAO);
     }
 
     public List<String> getAllKeys() throws SQLException{
@@ -62,5 +62,22 @@ public class CentroHistoricoDAO {
         return result;
     }
 
+
+    public Map<String,Localizacao> getLocalizacoes() throws SQLException {
+        Map<String,Localizacao> locais = new HashMap<>();
+        String query = "SELECT * FROM localizacao";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while (rs.next()){
+            String centro = rs.getString("centro_historico");
+            float latitude = rs.getFloat("Latitude");
+            float longitude = rs.getFloat("Longitude");
+            Localizacao localizacao = new Localizacao(latitude,longitude);
+            locais.put(centro,localizacao);
+
+        }
+        return locais;
+
+    }
 
 }
