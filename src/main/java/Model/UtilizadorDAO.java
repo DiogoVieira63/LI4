@@ -49,25 +49,9 @@ public class UtilizadorDAO {
         }
         else {
             System.out.println("Login feito com sucesso");
-            return getUtilizador(c,email);
+            return getUtilizador(email);
         }
-        return null; //TODO THROW EXCEPTION
-        /*
-        String query = "SElECT * FROM utilizador WHERE email = '" + email + "' AND LoggedIn = 0 AND Password = '" + password + "'";
-        Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery(query);
-        while (rs.next()){
-            Utilizador u = new Utilizador (rs.getString("Nome"),
-                    rs.getString("Password"),
-                    rs.getString("Email"),
-                    rs.getString("Telemovel"),
-                    rs.getInt("LoggedIn") != 0,
-                                               rs.getInt("Configuracoes_notificacao") );
-            //Trocar na Database
-
-
-         }
-         */
+        return null;
     }
 
     public void logOut(String email) throws SQLException {
@@ -85,9 +69,9 @@ public class UtilizadorDAO {
     }
 
 
-    public Utilizador getUtilizador (Connection connection, String email) throws SQLException {
+    public Utilizador getUtilizador (String email) throws SQLException {
         String query ="SELECT * FROM utilizador WHERE email = ?";
-        PreparedStatement ps = connection.prepareStatement(query);
+        PreparedStatement ps = c.prepareStatement(query);
         ps.setString(1,email);
         ResultSet rs = ps.executeQuery();
         while (rs.next()){
@@ -95,7 +79,6 @@ public class UtilizadorDAO {
             String nome = rs.getString("Nome");
             String telemovel = rs.getString("Telemovel");
             boolean loggedIn = rs.getBoolean("LoggedIn");
-            int confNotificao = rs.getInt("Configuracoes_notificacao");//TODO NOT SURE ABOUT THIS
             return new Utilizador(email,password,nome,telemovel,loggedIn);
         }
         return null;//TODO THROW EXCEPTION

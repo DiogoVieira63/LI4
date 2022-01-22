@@ -1,11 +1,12 @@
 package Model;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class GestaoCentroHistorico implements ICentroHistoricoFacade{
+public class GestaoCentroHistorico {
     private CentroHistoricoDAO centros;
 
     public GestaoCentroHistorico(Connection connection){
@@ -13,57 +14,52 @@ public class GestaoCentroHistorico implements ICentroHistoricoFacade{
     }
 
     public List<String> getKeys(){
-        return this.centros.getAllKeys();
+        try{ return this.centros.getAllKeys(); }
+        catch(SQLException e){ return new ArrayList<>();}
     }
 
     public List<Horario> getHorario(String nome){
         try{
             return centros.get(nome).getHorarios();
-        } catch(NullPointerException e) { return null; }
+        } catch(Exception e) { return null; }
     }
 
     public Horario getHorario(String nome, int dia) {
         try {
             return centros.get(nome).getHorario(dia);
-        } catch(NullPointerException e) { return null; }
+        } catch(Exception e) { return null; }
     }
 
-
-    public double getPrecario(String nome){
-        try{
-            return centros.get(nome).getPrecario();
-        } catch(NullPointerException e) { return 0; }
-    }
 
     public String getDescricao(String nome){
         try{
             return centros.get(nome).getDescricao();
-        } catch(NullPointerException e) { return null; }
+        } catch(Exception e) { return null; }
     }
 
     public String getHiperligacao(String nome){
         try{
             return centros.get(nome).getSite();
-        } catch(NullPointerException e) { return null; }
+        } catch(Exception e) { return null; }
     }
 
     public double getAvaliacao_geral(String nome){
         try{
             return centros.get(nome).getAvaliacao();
-        } catch(NullPointerException e) { return 0; }
+        } catch(Exception e) { return 0; }
     }
 
 
     public List<Review> getListaAvaliacao(String nome){
         try{
             return centros.get(nome).getReviews();
-        } catch(NullPointerException e) { return null; }
+        } catch(Exception e) { return null; }
     }
 
     public String getRua(String nome){
         try{
             return centros.get(nome).getRua();
-        } catch(NullPointerException e) { return null; }
+        } catch(Exception e) { return null; }
     }
 
     public void atualizaHorario(String nome, int dia, Horario h){

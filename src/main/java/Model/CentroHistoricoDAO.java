@@ -37,6 +37,8 @@ public class CentroHistoricoDAO {
         return list;
     }
 
+
+
     public CentroHistorico get(String id) throws SQLException {
         String query = "SELECT * FROM centro_historico WHERE NomeCentroHistorico = ?";
         PreparedStatement st = c.prepareStatement(query);
@@ -51,7 +53,7 @@ public class CentroHistoricoDAO {
         return new CentroHistorico(id,nome,hiperLigacao,rua,avaliacao,localizacao,horarios,);
     }
 
-    public List<String> getAllK() throws SQLException{
+    public List<String> getAllKeys() throws SQLException{
         String querry = "SELECT NomeCentroHistorico FROM " + dataBase;
         PreparedStatement st = c.prepareStatement(querry);
         ResultSet rs = st.executeQuery();
@@ -59,5 +61,6 @@ public class CentroHistoricoDAO {
         while(rs.next()) result.add(rs.getString("NomeCentroHistorico"));
         return result;
     }
+
 
 }

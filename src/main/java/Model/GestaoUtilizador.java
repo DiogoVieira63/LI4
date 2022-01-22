@@ -3,7 +3,7 @@ package Model;
 import java.sql.*;
 import java.util.*;
 
-public class GestaoUtilizador implements IUtilizadorFacade{
+public class GestaoUtilizador {
 
     private UtilizadorDAO utilizadores;
 
@@ -15,9 +15,7 @@ public class GestaoUtilizador implements IUtilizadorFacade{
         try{
             Utilizador user = utilizadores.create(nome, password, email);
             return true;
-        }catch(SQLException e){
-            return false;
-        }
+        }catch(SQLException e){ return false; }
     }
 
     public boolean newUser (String nome, String password, String email, String num_telefone){
@@ -35,28 +33,6 @@ public class GestaoUtilizador implements IUtilizadorFacade{
         utilizadores.logOut(email);
     }
 
-     /*
-    public List<Notificacao> getNotificacoes(String nome){
-        return this.utilizadores.get(nome).getNotificacoes();
-    }
-
-
-
-	public List<Notificacao> getAllNotificacoes() {
-        List<Notificacao> lista = new ArrayList<>();
-		for (Utilizador u : this.utilizadores.values()){
-            lista.addAll(u.getNotificacoes());
-        }
-        return lista;
-	}
-
-	    public List<Notificacao> listarNotificacoes(String u){
-        return utilizadores.get(u).getNotificacoes();
-    }
-
-
-      */
-
     public boolean validaRegisto(String email, String nome, String password){
         return false;
     }
@@ -67,10 +43,6 @@ public class GestaoUtilizador implements IUtilizadorFacade{
 
     public boolean validaLogin(String email, String password){
         return false;
-    }
-
-    public void enviaNotificacao(Notificacao n){
-
     }
 
     public void adicionaVisita(CentroHistorico visita){

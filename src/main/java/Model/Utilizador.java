@@ -11,14 +11,10 @@ public class Utilizador {
     private String numTelefone = "";
     private boolean loggedIn = false;
 
-    private List<Notificacao> notificacao = new ArrayList<>();
-
     private List<Review> avaliacoes = new ArrayList<>(); 
 
     private List<CentroHistorico> historico = new ArrayList<>();
 
-    private List<ConfigNotificacoes> configuracoes = new ArrayList<>();
-    
     public Utilizador(String nome, String email, String password, String numTelefone, boolean loggedIn) {
         this.nome = nome;
         this.email = email;
@@ -38,12 +34,6 @@ public class Utilizador {
         this.email = email;
         this.password = password;
         this.numTelefone = num_telefone;        
-    }
-
-    public List<Notificacao> getNotificacoes(){
-        return this.notificacao
-            .stream()
-            .collect(Collectors.toList());
     }
 
     public String getNome() {
@@ -86,8 +76,6 @@ public class Utilizador {
         this.loggedIn = loggedIn;
     }
 
-
-
     public List<Review> getReveiws() {
         return avaliacoes;
     }
@@ -104,18 +92,8 @@ public class Utilizador {
         this.historico = historico;
     }
 
-    public void recebeNotificacao(Notificacao n){
-        this.notificacao.add(n);
-    }
-
     public void addVisita(CentroHistorico visita){
         this.historico.add(visita);
-    }
-
-    public void eliminarNotificacoes(int id){
-        for (Notificacao n : this.notificacao){
-            if(n.getId() == id) this.notificacao.remove(n);
-        }        
     }
 
     public void mudarPass(String pass){
