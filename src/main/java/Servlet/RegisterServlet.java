@@ -24,17 +24,23 @@ public class RegisterServlet extends HttpServlet {
             String confirmPassword = request.getParameter("confirmPassword");
 
             if (email.isEmpty() || name.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                request.setAttribute("error", "You are missing one of the inputs");
+                request.setAttribute("error", "Uma ou mais caixas estão vazias");
                 doGet(request, response);
             } else {
                 if (!password.equals(confirmPassword)) {
-                    request.setAttribute("error", "Passwords don't match");
+                    request.setAttribute("error", "As palavras-passe são diferentes");
 
                     doGet(request, response);
                 } else {
-                    if (phone.isEmpty())guideMeTo.registarUtilizador(name,password,email);
-                    else guideMeTo.registarUtilizador(name,password,email,phone);
-                    System.out.println("The account was been created");
+                    try {
+                        if (phone.isEmpty())guideMeTo.registarUtilizador(name,password,email);
+                        else guideMeTo.registarUtilizador(name,password,email,phone);
+                        response.sendRedirect("/map");
+                    }
+                    catch (SQLException e){
+                        request.setAttribute("error","Email/Telemóvel em uso");
+                        doGet(request,response);
+                    }
                 }
             }
         }

@@ -17,12 +17,12 @@ public class GuideMeTo {
 
     }
 
-    public boolean registarUtilizador(String nome, String password, String email){
-        return utilizadores.newUser(nome, password, email);
+    public void registarUtilizador(String nome, String password, String email) throws SQLException {
+        utilizadores.newUser(nome, password, email);
     }
 
-    public boolean registarUtilizador(String nome, String password, String email, String n_telemovel){
-        return utilizadores.newUser(nome, password, email, n_telemovel);
+    public void registarUtilizador(String nome, String password, String email, String n_telemovel) throws SQLException {
+        utilizadores.newUser(nome, password, email, n_telemovel);
     }
 
     public boolean logIn(String email, String password) {
@@ -44,5 +44,18 @@ public class GuideMeTo {
         return centros.getLocalizacoes();
     }
 
+    public String getNome (String email){
+        try {
+            String nome = utilizadores.getNome(email);
+            System.out.println("Nome is " + nome);
+            return nome;
+        }catch (SQLException e){
+            return "";
+        }
+    }
+
+    public CentroHistorico getCentro (String centro) throws SQLException {
+        return centros.getCentro(centro);
+    }
     
 }

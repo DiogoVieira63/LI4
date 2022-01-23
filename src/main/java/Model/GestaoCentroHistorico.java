@@ -94,4 +94,7 @@ public class GestaoCentroHistorico {
         return centros.getLocalizacoes();
     }
 
+    public CentroHistorico getCentro(String centro) throws SQLException {
+        return centros.get(centro);
+    }
 }

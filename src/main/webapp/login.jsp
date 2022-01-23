@@ -17,7 +17,7 @@
 
 <div class="flex items-center justify-center min-h-screen bg-blue-100">
     <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
-        <h3 class="text-2xl font-bold text-center">Login to your account</h3>
+        <h3 class="text-2xl font-bold text-center">Entre na sua conta</h3>
         <h4 class="bg-red-300 text-red-900 font-semibold text-xl w-80 rounded-lg my-2 mx-auto">${error}</h4>
         <form method="post" action="http://localhost:8080/login">
             <div class="mt-4">
@@ -27,8 +27,8 @@
                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
                 </div>
                 <div class="mt-4">
-                    <label class="block">Password</label>
-                    <input type="password" placeholder="Password" id="password" name="password"
+                    <label class="block">Palavra-passe</label>
+                    <input type="password" placeholder="Palavra-passe" id="password" name="password"
                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
                 </div>
                 <div class="flex items-baseline justify-between">

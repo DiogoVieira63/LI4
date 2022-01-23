@@ -7,7 +7,7 @@ public class CentroHistorico {
     private double avaliacao;
     private Localizacao localizacao;
     private List<Horario> horario;
-    private ReviewsDAO reviews ;
+    private transient ReviewsDAO reviews ;
 
     public CentroHistorico(String nome, String descricao, String site, String rua, double avaliacao, Localizacao localizacao, List<Horario> horario, ReviewsDAO reviews) {
         this.nome = nome;

@@ -11,18 +11,12 @@ public class GestaoUtilizador {
         this.utilizadores = new UtilizadorDAO(connection);
     }
 
-    public boolean newUser (String nome, String password, String email){
-        try{
-            Utilizador user = utilizadores.create(nome, password, email);
-            return true;
-        }catch(SQLException e){ return false; }
+    public void newUser (String nome, String password, String email) throws SQLException {
+        Utilizador user = utilizadores.create(nome, password, email);
     }
 
-    public boolean newUser (String nome, String password, String email, String num_telefone){
-        try{
-            Utilizador user = utilizadores.create(nome, password, email, num_telefone);
-            return true;
-        }catch(SQLException e){ return false; }
+    public void newUser (String nome, String password, String email, String num_telefone) throws SQLException {
+        Utilizador user = utilizadores.create(nome, password, email, num_telefone);
     }
 
 	public void logIn(String email, String password) throws SQLException {
@@ -63,5 +57,9 @@ public class GestaoUtilizador {
 
     public void avaliar(String nome, double eval_preservacao, double eval_experiencia, double eval_facilidade, double eval_estetica){
 
+    }
+
+    public String getNome(String email) throws SQLException {
+        return utilizadores.getUtilizador(email).getNome();
     }
 }

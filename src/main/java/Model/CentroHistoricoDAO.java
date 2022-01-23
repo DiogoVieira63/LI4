@@ -16,6 +16,7 @@ public class CentroHistoricoDAO {
         PreparedStatement st = c.prepareStatement(query);
         st.setString(1,id);
         ResultSet rs = st.executeQuery();
+        rs.next();
         float latitude = rs.getFloat("Latitude");
         float longitude = rs.getFloat("Longitude");
         return new Localizacao(latitude,longitude);
@@ -42,7 +43,9 @@ public class CentroHistoricoDAO {
     public CentroHistorico get(String id) throws SQLException {
         String query = "SELECT * FROM centro_historico WHERE NomeCentroHistorico = ?";
         PreparedStatement st = c.prepareStatement(query);
+        st.setString(1,id);
         ResultSet rs = st.executeQuery();
+        rs.next();
         String nome = rs.getString("Descrição");
         String rua = rs.getString("Rua");
         String hiperLigacao = rs.getString("Hiperligacao");

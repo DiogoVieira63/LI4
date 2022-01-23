@@ -22,19 +22,22 @@ public class LoginServlet extends HttpServlet {
 
         try {
             GuideMeTo gtm = new GuideMeTo();
+            getServletContext().setAttribute("GTM",gtm);
 
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
 
             if (email.isEmpty() || password.isEmpty()) {
-                request.setAttribute("error", "You are missing one of the inputs");
+                request.setAttribute("error", "Uma das caixas está vazia");
                 doGet(request, response);
             }
             if (gtm.logIn(email, password)) {
                 System.out.println("Válido");
-                RequestDispatcher rd= getServletContext().getRequestDispatcher("/MapServlet");
-                rd.forward(request, response);
+
+                //getServletContext().getRequestDispatcher("/map.jsp").forward(request,response);
+                getServletContext().setAttribute("Email",email);
+                response.sendRedirect("/map");
             }
             else{
                 System.out.println("Inválido");

@@ -11,7 +11,7 @@ public class UtilizadorDAO {
     }
 
     public Utilizador create(String nome, String password, String email) throws SQLException{
-        String query = "INSERT INTO utilizador (Email,Password,Nome,LoggedIn,Configuracoes_notificacao )VALUES (?, ?, ?, ?,?)";
+        String query = "INSERT INTO utilizador (Email,Password,Nome,LoggedIn,Configuracoes_notificacao)VALUES (?, ?, ?, ?,?)";
         PreparedStatement pstmt = c.prepareStatement(query);
         pstmt.setString(1, email);
         pstmt.setString(2, password);
@@ -77,7 +77,7 @@ public class UtilizadorDAO {
             String nome = rs.getString("Nome");
             String telemovel = rs.getString("Telemovel");
             boolean loggedIn = rs.getBoolean("LoggedIn");
-            return new Utilizador(email,password,nome,telemovel,loggedIn);
+            return new Utilizador(nome,password,email,telemovel,loggedIn);
         }
         return null;//TODO THROW EXCEPTION
     }
