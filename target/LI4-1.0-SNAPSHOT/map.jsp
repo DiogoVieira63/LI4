@@ -211,20 +211,20 @@
             var site = document.getElementById("centroWeb");
             site.href=centro.get("site");
             site.innerHTML = "Website";
+            var id = centro.get("nome");
+            console.log(id);
             const request = {
-                placeId:centro.get("nome"),
-                fields: ["photo_reference"]
+                placeId:id,
+                fields: ["photos"],
             };
-
-            service = new google.maps.places.PlacesService(map);
+            const service = new google.maps.places.PlacesService(map);
             service.getDetails(request, callback);
 
             function callback(place, status) {
                 console.log(status);
-                if (status === new google.maps.places.PlacesServiceStatus.OK) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
                     var photo = document.getElementById("centroFoto");
-                    console.log(photo);
-                    photo.src = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyCAFdErN2BAGg2inePn_mSQ-sno_r4wuxYphotoreference=" + photo;
+                    photo.src = place.photos[0].getUrl();
                 }
             }
         }
@@ -233,8 +233,7 @@
 
 
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAFdErN2BAGg2inePn_mSQ-sno_r4wuxY=&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAFdErN2BAGg2inePn_mSQ-sno_r4wuxY=&callback=initMap&libraries=places"></script>
 
 </body>
 </html>
-1
