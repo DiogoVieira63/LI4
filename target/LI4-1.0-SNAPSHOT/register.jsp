@@ -32,8 +32,8 @@
                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
                 </div>
                 <div class="mt-4">
-                    <label class="block">Número de Telemóvel</label>
-                    <input type="number" placeholder="Número de Telemóvel" id="phone" name="phone"
+                    <label class="block">Telemóvel</label>
+                    <input type="number" placeholder="Número de Telemóvel" id="phone" name="phone" min="100000" max="999999999999999"
                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
                 </div>
                 <div class="mt-4">

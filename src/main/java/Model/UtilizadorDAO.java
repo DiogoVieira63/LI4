@@ -68,21 +68,44 @@ public class UtilizadorDAO {
 
 
     public Utilizador getUtilizador (String email) throws SQLException {
-        String query ="SELECT * FROM utilizador WHERE email = ?";
+        String query = "SELECT * FROM utilizador WHERE email = ?";
         PreparedStatement ps = c.prepareStatement(query);
-        ps.setString(1,email);
+        ps.setString(1, email);
         ResultSet rs = ps.executeQuery();
-        while (rs.next()){
+        while (rs.next()) {
             String password = rs.getString("Password");
             String nome = rs.getString("Nome");
             String telemovel = rs.getString("Telemovel");
             boolean loggedIn = rs.getBoolean("LoggedIn");
-            return new Utilizador(nome,email,password,telemovel,loggedIn,c);
+            return new Utilizador(nome, email, password, telemovel, loggedIn, c);
         }
         throw new SQLException("Can't get user");
     }
 
+    public void replaceNome(String email, String nome) throws SQLException {
+        String query = "UPDATE utilizador SET Nome = ? WHERE Email = ?";
+        PreparedStatement ps;
+        ps = c.prepareStatement(query);
+        ps.setString(1, nome);
+        ps.setString(2, email);
+        ps.execute();
+    }
 
-    
+    public void replacePassword(String email, String password) throws SQLException{
+        String query = "UPDATE utilizador SET Password = ? WHERE Email = ?";
+        PreparedStatement ps;
+        ps = c.prepareStatement(query);
+        ps.setString(1,password);
+        ps.setString(2,email);
+        ps.execute();
+    }
 
+    public void replaceTelefone(String email, String numTel) throws  SQLException{
+        String query = "UPDATE utilizador SET Telemovel = ? WHERE Email = ?";
+        PreparedStatement ps;
+        ps = c.prepareStatement(query);
+        ps.setString(1,numTel);
+        ps.setString(2,email);
+        ps.execute();
+    }
 }

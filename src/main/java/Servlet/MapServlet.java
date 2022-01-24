@@ -5,6 +5,7 @@ import Model.GuideMeTo;
 import Model.Localizacao;
 import Model.MediaReviews;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.sql.SQLException;
@@ -84,6 +85,15 @@ public class MapServlet extends HttpServlet {
                 if (mapVisitados.size() != 0){
                     String visitadosJSON = gson.toJson(mapVisitados);
                     request.setAttribute("Visitados",visitadosJSON);
+                }
+            }
+            String listar = request.getParameter("listar");
+            if (listar != null){
+                Map<String,String> mapAllCentros = gtm.getAllCentros();
+                if (mapAllCentros.size() != 0){
+                    String allCentros = gson.toJson(mapAllCentros);
+                    request.setAttribute("ListaCentros",gson.toJson(allCentros));
+                    System.out.println(allCentros);
                 }
             }
             if ( centro != null){

@@ -9,6 +9,7 @@ public interface IGestaoUtilizador {
 	void logIn(String email, String password) throws SQLException;
     void logOut(String email) throws SQLException;
     void adicionaVisita(String email,String centro) throws SQLException;
-    String getNome(String email) throws SQLException;
+    Utilizador getByEmail(String email) throws SQLException;
     List<String> getCentrosVisitados(String email) throws SQLException;
+    void replace(String email, Utilizador user) throws SQLException;
 }

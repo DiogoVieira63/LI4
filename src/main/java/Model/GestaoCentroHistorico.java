@@ -52,4 +52,8 @@ public class GestaoCentroHistorico implements IGestaoCentroHistorico{
     public MediaReviews getMediaReviews (String centro) throws SQLException {
         return centros.get(centro).getMediaReviews();
     }
+
+    public Map<String, String> getAllCentrosNames() throws SQLException {
+        return centros.getAllNames();
+    }
 }

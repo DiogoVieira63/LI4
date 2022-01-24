@@ -27,14 +27,28 @@ public class GestaoUtilizador implements IGestaoUtilizador{
         utilizadores.logOut(email);
     }
 
-    public void adicionaVisita(String email,String centro) throws SQLException {
+    public void replace(String email, Utilizador user) throws SQLException{
+        Utilizador oldUser = utilizadores.getUtilizador(email);
+        utilizadores.replaceNome(email, selectString(oldUser.getNome(),user.getNome()) );
+        utilizadores.replacePassword(email, selectString(oldUser.getPassword(),user.getPassword()) );
+        utilizadores.replaceTelefone(email, selectString(oldUser.getNumTelefone(),user.getNumTelefone()));
+    }
+    
+
+
+    private String selectString (String one,String two){
+        if (two != null && !two.isEmpty()) return two;
+        return one;
+    }
+
+    public void adicionaVisita(String email, String centro) throws SQLException {
         Utilizador utilizador = utilizadores.getUtilizador(email);
         utilizador.addVisita(centro);
 
     }
 
-    public String getNome(String email) throws SQLException {
-        return utilizadores.getUtilizador(email).getNome();
+    public Utilizador getByEmail(String email) throws SQLException {
+        return utilizadores.getUtilizador(email);
     }
 
     public List<String> getCentrosVisitados(String email) throws SQLException {

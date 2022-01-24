@@ -3,10 +3,10 @@ package Model;
 import java.sql.*;
 import java.util.*;
 
-public class GuideMeTo implements IGuideMeToo{
+public class GuideMeTo implements IGuideMeTo {
     
-    private GestaoUtilizador utilizadores;
-    private GestaoCentroHistorico centros;
+    private IGestaoUtilizador utilizadores;
+    private IGestaoCentroHistorico centros;
     private GestaoReviews reviews;
 
     public GuideMeTo() throws SQLException {
@@ -39,9 +39,22 @@ public class GuideMeTo implements IGuideMeToo{
         return centros.getLocalizacoes();
     }
 
+    public Utilizador getUserByEmail(String email){
+        try {
+            return utilizadores.getByEmail(email);
+        }catch (SQLException e){
+            return null;
+        }
+    }
+
+    public void changeUser(String email, Utilizador user) throws SQLException {
+        this.utilizadores.replace(email,user);
+
+    }
+
     public String getNome (String email){
         try {
-            String nome = utilizadores.getNome(email);
+            String nome = utilizadores.getByEmail(email).getNome();
             System.out.println("Nome is " + nome);
             return nome;
         }catch (SQLException e){
@@ -74,5 +87,9 @@ public class GuideMeTo implements IGuideMeToo{
         }
         return map;
     }
-    
+
+
+    public Map<String, String> getAllCentros() throws SQLException {
+        return centros.getAllCentrosNames();
+    }
 }

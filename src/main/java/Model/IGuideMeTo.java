@@ -3,7 +3,7 @@ package Model;
 import java.util.*;
 import java.sql.*;
 
-public interface IGuideMeToo {
+public interface IGuideMeTo {
     void registarUtilizador(String nome, String password, String email) throws SQLException;
     void registarUtilizador(String nome, String password, String email, String n_telemovel) throws SQLException;
     void logIn(String email, String password) throws SQLException;
@@ -15,4 +15,6 @@ public interface IGuideMeToo {
     void adicionarReview(String email,String centro, int facilidade,int preservacao,int estetica,int experiencia) throws SQLException;
     void adicionarVisitado(String email,String centro) throws SQLException;
     Map<String,String> getCentrosVisitados (String user) throws SQLException;
+    Utilizador getUserByEmail(String email);
+    void changeUser(String email,Utilizador user) throws SQLException;
 }

@@ -14,4 +14,5 @@ public interface IGestaoCentroHistorico {
     CentroHistorico getCentro(String centro) throws SQLException;
     MediaReviews getMediaReviews (String centro) throws SQLException;
 
+    Map<String, String> getAllCentrosNames() throws SQLException;
 }

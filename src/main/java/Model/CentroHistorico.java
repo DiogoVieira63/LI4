@@ -5,16 +5,14 @@ import java.util.*;
 
 public class CentroHistorico {
     private String key, nome,rua;
-    private double avaliacao;
     private Localizacao localizacao;
     private List<Horario> horario;
     private transient ReviewsDAO reviews ;
 
-    public CentroHistorico(String key, String nome, String rua, double avaliacao, Localizacao localizacao, List<Horario> horario, ReviewsDAO reviews) {
+    public CentroHistorico(String key, String nome, String rua,  Localizacao localizacao, List<Horario> horario, ReviewsDAO reviews) {
         this.key = key;
         this.nome = nome;
         this.rua = rua;
-        this.avaliacao = avaliacao;
         this.localizacao = localizacao;
         this.horario = horario;
         this.reviews = reviews;
@@ -36,13 +34,6 @@ public class CentroHistorico {
         this.nome = nome;
     }
 
-    public double getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setAvaliacao(double avaliacao) {
-        this.avaliacao = avaliacao;
-    }
     
     public String getRua(){
         return rua;
