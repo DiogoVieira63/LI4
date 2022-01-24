@@ -43,28 +43,10 @@ public class CentroHistorico {
     public void setAvaliacao(double avaliacao) {
         this.avaliacao = avaliacao;
     }
-       /*
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-
-        */
-
+    
     public String getRua(){
         return rua;
     }
-               /*
-    public void setHorario(Horario[] horario) {
-        this.horario = horario;
-    }
-
-
-    public void setHorario(int dia, Horario horario){
-        this.horario[dia] = horario;
-    }
-
-                */
 
     public List<Horario> getHorarios() {
         List<Horario> lista = new ArrayList<>();
@@ -93,28 +75,5 @@ public class CentroHistorico {
         return new MediaReviews(m_pres,m_exp,m_fa,m_est);
     }
 
-    /*
-    public Horario getHorario(int dia) {
-        return horario[dia];
-    }
-
-    public double calcAvalGeral() {
-        double d = 0;
-        for (Review r : this.reviews){
-            d += r.media();
-        }
-        return (d/this.reviews.size());
-    }
-
-    public void atualizaHorario(Horario[] horarioArray) {
-        this.horario = horarioArray;
-    }
-
-
-    public void addReview(Review r){
-        this.reviews.add(r);
-    }
-
-     */
 
 }

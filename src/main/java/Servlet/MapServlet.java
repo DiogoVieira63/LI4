@@ -5,7 +5,6 @@ import Model.GuideMeTo;
 import Model.Localizacao;
 import Model.MediaReviews;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.sql.SQLException;
@@ -13,7 +12,6 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import javax.swing.plaf.multi.MultiSeparatorUI;
 
 @WebServlet(name = "MapServlet", value = "/map")
 public class MapServlet extends HttpServlet {
@@ -105,13 +103,6 @@ public class MapServlet extends HttpServlet {
         }
 
         getServletContext().getRequestDispatcher("/map.jsp").forward(request,response);
-        /*response.setContentType("text/html");
-
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");*/
     }
 
     public void destroy() {

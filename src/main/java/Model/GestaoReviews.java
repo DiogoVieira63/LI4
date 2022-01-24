@@ -10,7 +10,6 @@ public class GestaoReviews {
         this.reviews = new ReviewsDAO(c);
     }
 
-
     public void adicionarReview(String email, String centro, int facilidade, int preservacao, int estetica, int experiencia) throws SQLException {
         reviews.doReview(email,centro,preservacao,facilidade,experiencia,estetica);
     }

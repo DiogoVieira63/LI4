@@ -1,13 +1,9 @@
 package Model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.*;
+import java.util.*;
 
-public class GuideMeTo {
+public class GuideMeTo implements IGuideMeToo{
     
     private GestaoUtilizador utilizadores;
     private GestaoCentroHistorico centros;

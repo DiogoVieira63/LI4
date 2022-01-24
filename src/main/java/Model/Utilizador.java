@@ -1,9 +1,7 @@
 package Model;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Utilizador {
  
@@ -76,7 +74,6 @@ public class Utilizador {
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
-
 
 
     public void addVisita(String centro) throws  SQLException{
