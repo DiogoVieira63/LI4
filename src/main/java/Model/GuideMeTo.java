@@ -55,7 +55,6 @@ public class GuideMeTo implements IGuideMeTo {
     public String getNome (String email){
         try {
             String nome = utilizadores.getByEmail(email).getNome();
-            System.out.println("Nome is " + nome);
             return nome;
         }catch (SQLException e){
             return "";

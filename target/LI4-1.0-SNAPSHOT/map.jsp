@@ -388,9 +388,6 @@
 
 <div id="map"></div>
 
-<h1><%//System.out.println(email);%></h1>
-
-
 <script>
     function createCookie(name, value) {
         var expires = "";
@@ -433,7 +430,6 @@
             center: location,
         });
         let mapCookie = readCookie('Map');
-        console.log(mapCookie);
         if (mapCookie != null) LoadMap(map);
         map.addListener("center_changed", () => {
             SaveMap(map);
@@ -483,10 +479,11 @@
 
         map.set('styles', customStyled);
         var mapLocais = new Map(Object.entries(JSON.parse('${Locais}')))
+        console.log(mapLocais);
         for (let [key, value] of mapLocais) {
             let marker = new google.maps.Marker({
                 position: new google.maps.LatLng(value["latitude"], value["longitude"]),
-                content: key //STORE PLACE ID HERE
+                content: key
             });
             marker.setMap(map);
 
@@ -507,7 +504,6 @@
             if ('${Visitados}' !== "") {
                 document.getElementById("list").style.display = "block";
                 var visitados = new Map(Object.entries(JSON.parse('${Visitados}')));
-                console.log(visitados);
                 dolista(visitados);
             }
         } else {
@@ -515,12 +511,10 @@
         }
 
         if ('${ListaCentros}' !== "") {
-            console.log('${ListaCentros}')
             document.getElementById("list").style.display = "block";
             var str = String('${ListaCentros}');
             str = str.substring(1, str.length - 1);
             var listaCentros = new Map(Object.entries(JSON.parse(str)));
-            console.log(listaCentros);
             dolista(listaCentros);
         }
         if ('${Centro}' !== "") {
@@ -529,7 +523,10 @@
                 document.getElementById("buttonAddVisita").style.display = "block";
             }
             var centro = new Map(Object.entries(JSON.parse('${Centro}')));
-            console.log(centro);
+            var latCentro = centro.get("localizacao")["latitude"];
+            var lngCentro = centro.get("localizacao")["longitude"];
+            var locationCentro = {lat:latCentro, lng: lngCentro};
+            map.setCenter(locationCentro);
             document.getElementById("centroNome").innerHTML = centro.get("nome");
             document.getElementById("centroLocal").innerHTML = centro.get("rua");
             var horario = centro.get("horario");
@@ -537,11 +534,7 @@
                 doHorario(horario);
             }
             var media = new Map(Object.entries(JSON.parse('${Media}')));
-            console.log(media);
             doTable(media);
-            //var site = document.getElementById("centroWeb");
-            //site.href=centro.get("site");
-            //site.innerHTML = "Website";
             var id = centro.get("key");
             const request = {
                 placeId: id,
@@ -555,7 +548,6 @@
         }
 
         function callback(place, status) {
-            console.log(status);
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 var photo = document.getElementById("centroFoto");
                 photo.src = place.photos[0].getUrl();
@@ -581,7 +573,6 @@
     }
 
     function doTable(media) {
-        console.log(media.get("media"));
         if (media.get("media") === 0) return;
         var table = document.getElementById('mediaTable');
         var row = table.insertRow();
@@ -611,16 +602,6 @@
         var imgGER = document.createElement("img");
         imgGER.src = "https://i.ibb.co/XpGN8Fb/star.png";
         cell5.appendChild(imgGER);
-        /*
-            <img src="https://i.ibb.co/44cM77j/smile.png" alt="smile" border="0">
-                <img src="https://i.ibb.co/KqFcYVw/eye.png" alt="eye" border="0">
-                    <img src="https://i.ibb.co/fYYn0jN/column.png" alt="column" border="0">
-                    */
-        //cell1.innerHTML="FA";
-        //cell2.innerHTML="EXP";
-        //cell3.innerHTML="PRES";
-        //cell4.innerHTML="EST";
-        //cell5.innerHTML="Geral"
         row = table.insertRow();
         cell1 = row.insertCell(0);
         cell2 = row.insertCell(1);

@@ -89,7 +89,6 @@ public class MapServlet extends HttpServlet {
                 if (mapAllCentros.size() != 0){
                     String allCentros = gson.toJson(mapAllCentros);
                     request.setAttribute("ListaCentros",gson.toJson(allCentros));
-                    System.out.println(allCentros);
                 }
             }
             if ( centro != null){
