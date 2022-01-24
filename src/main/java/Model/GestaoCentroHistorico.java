@@ -29,11 +29,6 @@ public class GestaoCentroHistorico implements IGestaoCentroHistorico{
     }
 
 
-    public double getAvaliacao_geral(String nome){
-        try{
-            return centros.get(nome).getAvaliacao();
-        } catch(Exception e) { return 0; }
-    }
 
     public String getRua(String nome){
         try{

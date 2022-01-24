@@ -28,7 +28,6 @@ public class MapServlet extends HttpServlet {
             int preservacao = Integer.parseInt(request.getParameter("preservacao"));
             int estetica = Integer.parseInt(request.getParameter("estetica"));
             int experiencia = Integer.parseInt(request.getParameter("experiencia"));
-            System.out.println("Centro is" + centro);
             try {
                 gtm.adicionarReview(email, centro, facilidade, preservacao, estetica, experiencia);
             } catch (SQLException throwables) {
@@ -37,8 +36,6 @@ public class MapServlet extends HttpServlet {
         }
         if (form.equals("visitados")){
             try {
-                System.out.println("centro -> "+ centro);
-                System.out.println("user ->" + email);
                 gtm.adicionarVisitado(email,centro);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -64,7 +61,6 @@ public class MapServlet extends HttpServlet {
             }
             this.gtm = new GuideMeTo();
             String nome;
-            System.out.println("Email is " + email);
             if (email != null){
                 this.email = email;
                 nome = gtm.getNome(email);
