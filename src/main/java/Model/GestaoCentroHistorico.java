@@ -3,7 +3,6 @@ package Model;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class GestaoCentroHistorico {
@@ -36,15 +35,10 @@ public class GestaoCentroHistorico {
 
     public String getDescricao(String nome){
         try{
-            return centros.get(nome).getDescricao();
+            return centros.get(nome).getNome();
         } catch(Exception e) { return null; }
     }
 
-    public String getHiperligacao(String nome){
-        try{
-            return centros.get(nome).getSite();
-        } catch(Exception e) { return null; }
-    }
 
     public double getAvaliacao_geral(String nome){
         try{
@@ -96,5 +90,9 @@ public class GestaoCentroHistorico {
 
     public CentroHistorico getCentro(String centro) throws SQLException {
         return centros.get(centro);
+    }
+
+    public MediaReviews getMediaReviews (String centro) throws SQLException {
+        return centros.get(centro).getMediaReviews();
     }
 }

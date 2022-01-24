@@ -22,8 +22,7 @@ public class LoginServlet extends HttpServlet {
 
         try {
             GuideMeTo gtm = new GuideMeTo();
-            getServletContext().setAttribute("GTM",gtm);
-
+            
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
@@ -32,15 +31,15 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("error", "Uma das caixas está vazia");
                 doGet(request, response);
             }
-            if (gtm.logIn(email, password)) {
+            try {
+                gtm.logIn(email, password);
                 System.out.println("Válido");
-
-                //getServletContext().getRequestDispatcher("/map.jsp").forward(request,response);
-                getServletContext().setAttribute("Email",email);
                 response.sendRedirect("/map");
             }
-            else{
+            catch (SQLException e){
                 System.out.println("Inválido");
+                request.setAttribute("error", "Login inválido");
+                doGet(request,response);
             }
         }
         catch (SQLException e){

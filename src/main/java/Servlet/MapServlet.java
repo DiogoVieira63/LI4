@@ -3,6 +3,7 @@ package Servlet;
 import Model.CentroHistorico;
 import Model.GuideMeTo;
 import Model.Localizacao;
+import Model.MediaReviews;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -12,34 +13,91 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import javax.swing.plaf.multi.MultiSeparatorUI;
 
 @WebServlet(name = "MapServlet", value = "/map")
 public class MapServlet extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private String email;
+    private GuideMeTo gtm;
+
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String form = request.getParameter("form");
+        String centro = request.getParameter("centroForm");
+        if (form.equals("review")) {
+            int facilidade = Integer.parseInt(request.getParameter("facilidadeAcesso"));
+            int preservacao = Integer.parseInt(request.getParameter("preservacao"));
+            int estetica = Integer.parseInt(request.getParameter("estetica"));
+            int experiencia = Integer.parseInt(request.getParameter("experiencia"));
+            System.out.println("Centro is" + centro);
+            try {
+                gtm.adicionarReview(email, centro, facilidade, preservacao, estetica, experiencia);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        if (form.equals("visitados")){
+            try {
+                System.out.println("centro -> "+ centro);
+                System.out.println("user ->" + email);
+                gtm.adicionarVisitado(email,centro);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+        response.sendRedirect("/map?key="+ centro);
 
     }
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-
         try {
-            GuideMeTo gtm = new GuideMeTo();
-            request.setAttribute("GTM",gtm);
-            String email = (String) getServletContext().getAttribute("Email");
-            System.out.println(email);
-            String nome = gtm.getNome(email);
+
+            String email = null;
+            Cookie[] cookies = request.getCookies();
+            for (int i = 0; i < cookies.length; i++) {
+                String name = cookies[i].getName();
+                String value = cookies[i].getValue();
+                if (name.equals("email")){
+                    email = value;
+                }
+            }
+            this.gtm = new GuideMeTo();
+            String nome;
+            System.out.println("Email is " + email);
+            if (email != null){
+                this.email = email;
+                nome = gtm.getNome(email);
+            }
+            else{
+                nome="Guest";
+                this.email="";
+            }
+            String visitados = request.getParameter("visitados");
+            request.setAttribute("Nome",nome);
+            request.setAttribute("Email",this.email);
             String centro = request.getParameter("key");
+            request.setAttribute("Key",centro);
+            request.setAttribute("Centro","");
             Gson gson = new Gson();
+            if (visitados != null){
+                Map<String,String> mapVisitados = gtm.getCentrosVisitados(email);
+                if (mapVisitados.size() != 0){
+                    String visitadosJSON = gson.toJson(mapVisitados);
+                    request.setAttribute("Visitados",visitadosJSON);
+                }
+            }
             if ( centro != null){
                 CentroHistorico centroHistorico =  gtm.getCentro(centro);
+                MediaReviews mediaReviews = centroHistorico.getMediaReviews();
                 String centroJSON = gson.toJson(centroHistorico);
+                String mediaJSON = gson.toJson(mediaReviews);
+                request.setAttribute("Media",mediaJSON);
                 request.setAttribute("Centro",centroJSON);
-                System.out.println(centroJSON);
             }
-            request.setAttribute("Nome",nome);
-            request.setAttribute("Email",email);
             Map<String, Localizacao> mapLocais = gtm.getLocalizacoes();
             String local = gson.toJson(mapLocais);
-            System.out.println("Locais is" + local);
             request.setAttribute("Locais",local);
         }
         catch (SQLException e){

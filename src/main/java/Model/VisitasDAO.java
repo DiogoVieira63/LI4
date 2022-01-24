@@ -29,11 +29,14 @@ public class VisitasDAO {
 
 
     public void addVisita (String email,String centro) throws SQLException {
-        String query ="INSERT INTO IGNORE visitados(centro_historico,email) VALUES (?,?)";
+        String query ="INSERT IGNORE INTO visitados(centro_historico,email) VALUES (?,?)";
         PreparedStatement ps = c.prepareStatement(query);
+        System.out.println("centro:" +centro);
+        System.out.println("email:" + email);
         ps.setString(1,centro);
         ps.setString(2,email);
-        ps.execute();
+        boolean staus = ps.execute();
+        System.out.println("Visita adicionada -> "+ staus);
     }
 
 }

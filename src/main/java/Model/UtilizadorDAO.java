@@ -43,8 +43,8 @@ public class UtilizadorDAO {
         ps.setString(2,email);
         ps.setString(3,password);
         int i = ps.executeUpdate();
-        if (i  == 0){//THROW EXCEPTION UTILIZADOR NÃO EXISTE
-            return null;
+        if (i  == 0){
+            throw new SQLException("Utilizador não existe");
         }
         else {
             System.out.println("Login feito com sucesso");
@@ -77,9 +77,9 @@ public class UtilizadorDAO {
             String nome = rs.getString("Nome");
             String telemovel = rs.getString("Telemovel");
             boolean loggedIn = rs.getBoolean("LoggedIn");
-            return new Utilizador(nome,password,email,telemovel,loggedIn);
+            return new Utilizador(nome,email,password,telemovel,loggedIn,c);
         }
-        return null;//TODO THROW EXCEPTION
+        throw new SQLException("Can't get user");
     }
 
 

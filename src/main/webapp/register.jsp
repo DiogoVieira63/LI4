@@ -19,7 +19,7 @@
     <div class="px-10 py-6 mt-4 text-left bg-white shadow-lg">
         <h3 class="text-2xl font-bold text-center">Criar Conta</h3>
         <h4 class="bg-red-300 text-red-900 font-semibold text-center text-xl rounded-lg">${error}</h4>
-        <form method="post" action="http://localhost:8080/register">
+        <form onsubmit="return createCookie('email', this.querySelector('#email').value)" method="post" action="http://localhost:8080/register">
             <div class="mt-4">
                 <div>
                     <label class="block" >Email</label>
@@ -55,4 +55,14 @@
     </div>
 </div>
 </body>
+
+<script>
+
+    function createCookie(name,value) {
+        var expires = "";
+        document.cookie = name+"="+value+expires+"; path=/";
+    }
+
+
+</script>
 </html>

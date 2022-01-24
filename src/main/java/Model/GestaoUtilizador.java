@@ -39,7 +39,9 @@ public class GestaoUtilizador {
         return false;
     }
 
-    public void adicionaVisita(CentroHistorico visita){
+    public void adicionaVisita(String email,String centro) throws SQLException {
+        Utilizador utilizador = utilizadores.getUtilizador(email);
+        utilizador.addVisita(centro);
 
     }
 
@@ -61,5 +63,10 @@ public class GestaoUtilizador {
 
     public String getNome(String email) throws SQLException {
         return utilizadores.getUtilizador(email).getNome();
+    }
+
+    public List<String> getCentrosVisitados(String email) throws SQLException {
+        Utilizador utilizador = utilizadores.getUtilizador(email);
+        return utilizador.getVisitados();
     }
 }

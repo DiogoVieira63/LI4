@@ -48,12 +48,11 @@ public class CentroHistoricoDAO {
         rs.next();
         String nome = rs.getString("Descrição");
         String rua = rs.getString("Rua");
-        String hiperLigacao = rs.getString("Hiperligacao");
         double avaliacao = rs.getDouble("Aval_geral");
         Localizacao localizacao = getLocalizao(id);
         List<Horario> horarios = getHorario(id);
         ReviewsDAO reviewsDAO = new ReviewsDAO(c);
-        return new CentroHistorico(id,nome,hiperLigacao,rua,avaliacao,localizacao,horarios,reviewsDAO);
+        return new CentroHistorico(id,nome,rua,avaliacao,localizacao,horarios,reviewsDAO);
     }
 
     public List<String> getAllKeys() throws SQLException{

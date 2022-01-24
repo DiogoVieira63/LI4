@@ -3,17 +3,21 @@ package Model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GuideMeTo {
     
     private GestaoUtilizador utilizadores;
     private GestaoCentroHistorico centros;
+    private GestaoReviews reviews;
 
     public GuideMeTo() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/LI4","root","root");
         this.utilizadores = new GestaoUtilizador(conn);
         this.centros = new GestaoCentroHistorico(conn);
+        this.reviews = new GestaoReviews(conn);
 
     }
 
@@ -25,20 +29,15 @@ public class GuideMeTo {
         utilizadores.newUser(nome, password, email, n_telemovel);
     }
 
-    public boolean logIn(String email, String password) {
-        try{
-            utilizadores.logIn(email,password);
-            return  true;
-        }catch (SQLException e){return  false;}
+    public void logIn(String email, String password) throws SQLException {
+        utilizadores.logIn(email,password);
+
     }
 
     public void logOut(String email) throws SQLException {
         utilizadores.logOut(email);
     }
 
-    public String getHiperligacao (String nomeCentro){ 
-        return centros.getHiperligacao(nomeCentro); 
-    }
 
     public Map<String,Localizacao> getLocalizacoes () throws SQLException {
         return centros.getLocalizacoes();
@@ -56,6 +55,28 @@ public class GuideMeTo {
 
     public CentroHistorico getCentro (String centro) throws SQLException {
         return centros.getCentro(centro);
+    }
+
+    public MediaReviews getMediaReviews(String centro) throws SQLException {
+        return centros.getMediaReviews(centro);
+    }
+
+    public void adicionarReview(String email,String centro, int facilidade,int preservacao,int estetica,int experiencia) throws SQLException {
+        reviews.adicionarReview(email, centro,  facilidade, preservacao, estetica, experiencia);
+    }
+
+    public void adicionarVisitado(String email,String centro) throws SQLException {
+        utilizadores.adicionaVisita(email,centro);
+    }
+
+    public Map<String,String> getCentrosVisitados (String user) throws SQLException {
+        Map<String,String> map = new HashMap<>();
+        List<String> keysVisitados = utilizadores.getCentrosVisitados(user);
+        for (String key : keysVisitados){
+            String nome = centros.getDescricao(key);
+            map.put(key,nome);
+        }
+        return map;
     }
     
 }

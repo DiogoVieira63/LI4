@@ -49,7 +49,7 @@ public class ReviewsDAO {
 
     public List<Review> getReviewsCentro(String centro) throws SQLException {
         List<Review> listReviews = new ArrayList<>();
-        String query = "SELECT * FROM avaliacao WHERE centro_hsitorico = ?";
+        String query = "SELECT * FROM avaliacao WHERE centro_historico = ?";
         PreparedStatement pstm = c.prepareStatement(query);
         pstm.setString(1, centro);
         ResultSet rs = pstm.executeQuery();

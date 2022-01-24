@@ -1,5 +1,4 @@
 <%--@elvariable id="Locais" type="java.lang.String"--%>
-<%@ page import="Model.GuideMeTo" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="Model.Localizacao" %>
 <%@ page import="java.sql.SQLException" %>
@@ -33,11 +32,14 @@
             overflow-x: hidden;
             padding-top: 20px;
         }
+        #tableHorario td,tr {
+            border: 1px solid white;
+        }
 
         .sidenav a {
             padding: 6px 8px 6px 16px;
             text-decoration: none;
-            font-size: 25px;
+            font-size: 15px;
             color: #818181;
             display: block;
         }
@@ -67,12 +69,22 @@
             vertical-align: middle;
         }
 
+        .sidenav td{
+            text-decoration: none;
+            font-size: 15px;
+            color: #C1C2C2;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+
 
         .sidenav img {
             border-radius: 10px;
             padding: 5px 5px 5px 5px;
             width: 90%;
         }
+
 
         .sidenav a:hover {
             color: #f1f1f1;
@@ -100,18 +112,128 @@
             }
         }
 
+        {box-sizing: border-box;}
+
+        /* Button used to open the contact form - fixed at the bottom of the page */
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            width: 300px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: center;
+            display: none;
+        }
+
+
+
+
+        .label{
+            text-decoration: none;
+            font-size: 15px;
+            color: #C1C2C2;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        
+
+        /* The popup form - hidden by default */
+        .form-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+            width: 300px;
+        }
+
+        form table{
+            width: 100%;
+        }
+
+        /* Add styles to the form container */
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: #111;
+        }
+
+
+        /* Full-width input fields */
+        .form-container input[type=text] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #C1C2C2;
+        }
+        
+
+        .form-container h2{
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #E6A018;
+            display: block;
+            text-align: center;
+        }
+
+        #logoutImg{
+            height: 40px;
+            width: auto;
+        }
+
+
+
+        /* Set a style for the submit/login button */
+        .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom:10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+        .btn:hover, .open-button:hover {
+            opacity: 1;
+        }
+
+        #myForm{
+            display: none;
+        }
+        nav ul{
+            height:200px;
+            width:100%;
+        }
+        nav ul{
+            display: none;
+            overflow:hidden;
+            overflow-y:scroll;
+        }
+
+        #mediaTable img{
+            height: 40px;
+        }
+
+
     </style>
 </head>
 <body>
-
-
-
-<%
-    String email = (String) request.getServletContext().getAttribute("Email");
-    GuideMeTo gtm = (GuideMeTo) request.getServletContext().getAttribute("GTM");
-%>
-
-
 
 <div class="sidenav">
     <div style="align-self: center;">
@@ -121,22 +243,118 @@
         <tr>
             <td style="width: 10%;"><img src="https://i.ibb.co/v3yBNZG/user.png" style="width: 25px;background-color: #cccccc;"></td>
             <td>
-                <h2>${Nome}</h2>
+                <h2 id="userNome"></h2>
             </td>
         </tr>
         <tr>
-            <td><img src="https://i.ibb.co/qsh415P/email.png" style="width: 20px;background-color: #cccccc;"></td>
+            <td><img id="emailImg" src="https://i.ibb.co/qsh415P/email.png" style="width: 25px;background-color: #cccccc;display: none"></td>
             <td>
-                <h2>${Email}</h2>
+                <h2 id="mailText"></h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a onclick="eraseCookie('email')" href="http://localhost:8080/">
+                    <img id="logoutImg" src="https://i.ibb.co/9VhdmSW/open-door.png" alt="open-door">
+                </a>
+            </td>
+            <td>
+                <a onclick="eraseCookie('email')" href="http://localhost:8080/">
+                    <h2 id ="loginORlogout"></h2>
+                </a>
             </td>
         </tr>
     </table>
     <img id="centroFoto">
     <div class="centro">
         <h2 id="centroNome"></h2>
+        <table id ="mediaTable">
+        </table>
         <p id="centroLocal"></p>
+        <h2 id ="centroHorario"></h2>
+        <p id="alwaysOpen"></p>
+        <table id="tableHorario" style="width: 100%">
+        </table>
         <a id="centroWeb"></a>
-        <h3></h3>
+        <nav>
+            <ul id ="list"></ul>
+        </nav>
+        <button id="buttonAvaliacao" class="open-button" onclick="openForm()">Adicionar Avaliação</button>
+
+        <div class="form-popup" id="myForm">
+            <form method="post" action="http://localhost:8080/map" class="form-container">
+                <h2>Avaliação</h2>
+                <input type="hidden" name="form" value="review">
+
+                <input type="hidden" name="centroForm" value="${Key}"/>
+
+                <table>
+                    <tr>
+                        <td>
+                            <label class="label">Facilidade de Acesso</label>
+                        </td>
+                        <td>
+                            <input style="float: right;clear: both;" type="number" min="1" max="5" name="facilidadeAcesso" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label">Preservacao</label>
+                        </td>
+                        <td>
+                            <input style="float: right;clear: both;" type="number" min="1" max="5" name="preservacao" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label">Estetica</label>
+                        </td>
+                        <td>
+                            <input style="float: right;clear: both;" type="number" min="1" max="5"  name="estetica" required>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label">Experiencia</label>
+                        </td>
+                        <td>
+                            <input style="float: right;clear: both;" type="number" min="1" max="5" name="experiencia" required>
+                        </td>
+                    </tr>
+
+
+
+
+                </table>
+
+
+                <button type="submit" class="btn">Submeter</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Fechar</button>
+            </form>
+        </div>
+
+        <div id="AddVisita">
+            <form method="post" action="http://localhost:8080/map" >
+
+                <input type="hidden" name="centroForm" value="${Key}"/>
+                <input type="hidden" name="form" value="visitados">
+
+                <button id="buttonAddVisita" type="submit" class="open-button">Adicionar Visitado</button>
+            </form>
+        </div>
+
+       <div id="Visitados">
+           <form method="get" action="http://localhost:8080/map">
+               <input type="hidden" name="visitados" value="false">
+               <button class="open-button" id="buttonVisitados" type="submit">Visitados</button>
+           </form>
+
+
+
+       </div>
+
+
     </div>
 </div>
 
@@ -146,7 +364,44 @@
 
 
 
+<script>
+    function createCookie(name,value,days) {
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime()+(days*24*60*60*1000));
+            var expires = "; expires="+date.toGMTString();
+        }
+        else var expires = "";
+        document.cookie = name+"="+value+expires+"; path=/";
+    }
 
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    function eraseCookie(name) {
+        createCookie(name,"",-1);
+    }
+</script>
+
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAFdErN2BAGg2inePn_mSQ-sno_r4wuxY=&libraries=places&callback=initMap"></script>
 <script>
     function initMap() {
         var location = {lat: 41.559, lng: -8.427};
@@ -190,6 +445,7 @@
                 ]
             }
         ];
+
         map.set('styles',customStyled);
         var mapLocais = new Map(Object.entries(JSON.parse('${Locais}')))
         for (let [key,value] of mapLocais) {
@@ -198,42 +454,173 @@
                 content:key //STORE PLACE ID HERE
             });
             marker.setMap(map);
-            
+
             marker.addListener("click", function (){
-                map.setCenter(marker.getPosition());
                 window.location.replace("map?key=" + marker.content);
             });
         }
-        if ('${Centro}' != null){
-            var centro = new Map(Object.entries(JSON.parse('${Centro}')));
-            document.getElementById("centroNome").innerHTML = centro.get("descricao");
-            document.getElementById("centroLocal").innerHTML = centro.get("rua");
-            var site = document.getElementById("centroWeb");
-            site.href=centro.get("site");
-            site.innerHTML = "Website";
-            var id = centro.get("nome");
-            console.log(id);
-            const request = {
-                placeId:id,
-                fields: ["photos"],
-            };
-            const service = new google.maps.places.PlacesService(map);
-            service.getDetails(request, callback);
+        document.getElementById("userNome").innerHTML='${Nome}';
 
-            function callback(place, status) {
-                console.log(status);
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    var photo = document.getElementById("centroFoto");
-                    photo.src = place.photos[0].getUrl();
+        var email = readCookie('email');
+        if(email != null){
+            document.getElementById("mailText").innerHTML=email;
+            document.getElementById("emailImg").style.display="revert";
+            document.getElementById("loginORlogout").innerHTML="Sair da Conta";
+            document.getElementById("buttonVisitados").style.display="block";
+            if('${Visitados}' !== ""){
+                document.getElementById("list").style.display="block";
+                var visitados = new Map(Object.entries(JSON.parse('${Visitados}')));
+                console.log(visitados);
+                for(let[key,value] of visitados){
+                    var ul = document.getElementById("list");
+                    var a = document.createElement("a");
+                    a.href = "http://localhost:8080/map?key="+ key;
+                    a.text= value;
+                    ul.appendChild(a);
                 }
             }
         }
-        
+        else{
+            document.getElementById("loginORlogout").innerHTML="Menu inicial";
+        }
+
+        if ('${Centro}' !== "") {
+            if (email !== null){
+                document.getElementById("buttonAvaliacao").style.display="block";
+                document.getElementById("buttonAddVisita").style.display="block";
+            }
+            var centro = new Map(Object.entries(JSON.parse('${Centro}')));
+            console.log(centro);
+            document.getElementById("centroNome").innerHTML = centro.get("nome");
+            document.getElementById("centroLocal").innerHTML = centro.get("rua");
+            var horario = centro.get("horario");
+            if (horario.length > 0) {
+                doHorario(horario);
+            }
+            var media = new Map(Object.entries(JSON.parse('${Media}')));
+            console.log(media);
+            doTable(media);
+            //var site = document.getElementById("centroWeb");
+            //site.href=centro.get("site");
+            //site.innerHTML = "Website";
+            var id = centro.get("key");
+            const request = {
+                placeId:id,
+                fields: ["photos","website"],
+            };
+            const service = new google.maps.places.PlacesService(map);
+
+            service.getDetails(request, callback);
+
+
+        }
+        function callback(place, status) {
+            console.log(status);
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                var photo = document.getElementById("centroFoto");
+                photo.src = place.photos[0].getUrl();
+                var web = place.website;
+                if (typeof web !== 'undefined') {
+                    var site = document.getElementById("centroWeb");
+                    site.href = web;
+                    site.innerHTML = "Website";
+                }
+            }
+        }
+
+    }
+
+    function doTable(media){
+        console.log(media.get("media"));
+        if (media.get("media") === 0) return;
+        var table = document.getElementById('mediaTable');
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var imgFA = document.createElement("img");
+        imgFA.src="https://i.ibb.co/zJNx1yt/walking.png";
+        imgFA.style="width=15px"
+        cell1.appendChild(imgFA);
+
+        var imgEXP = document.createElement("img");
+        imgEXP.src="https://i.ibb.co/44cM77j/smile.png";
+        cell2.appendChild(imgEXP);
+
+        var imgPRES = document.createElement("img");
+        imgPRES.src="https://i.ibb.co/fYYn0jN/column.png";
+        cell3.appendChild(imgPRES);
+
+        var imgEST= document.createElement("img");
+        imgEST.src="https://i.ibb.co/KqFcYVw/eye.png";
+        cell4.appendChild(imgEST);
+
+
+        var imgGER= document.createElement("img");
+        imgGER.src="https://i.ibb.co/XpGN8Fb/star.png";
+        cell5.appendChild(imgGER);
+        /*
+            <img src="https://i.ibb.co/44cM77j/smile.png" alt="smile" border="0">
+                <img src="https://i.ibb.co/KqFcYVw/eye.png" alt="eye" border="0">
+                    <img src="https://i.ibb.co/fYYn0jN/column.png" alt="column" border="0">
+                    */
+        //cell1.innerHTML="FA";
+        //cell2.innerHTML="EXP";
+        //cell3.innerHTML="PRES";
+        //cell4.innerHTML="EST";
+        //cell5.innerHTML="Geral"
+        row = table.insertRow();
+        cell1 = row.insertCell(0);
+        cell2 = row.insertCell(1);
+        cell3 = row.insertCell(2);
+        cell4 = row.insertCell(3);
+        cell5 = row.insertCell(4);
+        cell1.innerHTML=media.get("facilidadeAcesso");
+        cell2.innerHTML=media.get("experiencia");
+        cell3.innerHTML=media.get("preservacao");
+        cell4.innerHTML=media.get("estetica");
+        cell5.innerHTML=media.get("media");
+    }
+
+    function doHorario(horario){
+        var weekday=new Array(7);
+        weekday[0]="Domingo";
+        weekday[1]="Segunda";
+        weekday[2]="Terça";
+        weekday[3]="Quarta";
+        weekday[4]="Quinta";
+        weekday[5]="Sexta";
+        weekday[6]="Sábado";
+        document.getElementById("centroHorario").innerHTML = "Horário";
+        if (horario.length === 1 && horario[0].abertura === horario[0].fecho){
+            document.getElementById("alwaysOpen").innerHTML="Sempre aberto";
+            return;
+        }
+        var table = document.getElementById('tableHorario');
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        cell1.innerHTML = "Dia";
+        cell2.innerHTML = "Abertura";
+        cell3.innerHTML = "Fecho";
+        for (let x in horario){
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell3 = row.insertCell(2);
+            cell1.innerHTML = weekday[horario[x].dia];
+            cell2.innerHTML = horario[x].abertura;
+            cell3.innerHTML = horario[x].fecho;
+        }
+
     }
 
 
+
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAFdErN2BAGg2inePn_mSQ-sno_r4wuxY=&callback=initMap&libraries=places"></script>
 
 </body>
 </html>
